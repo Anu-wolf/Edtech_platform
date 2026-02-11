@@ -6,6 +6,7 @@ import { ThemeProvider } from "next-themes"
 import "./globals.css"
 import { Header } from "@/components/header"
 import { MobileNav } from "@/components/mobile-nav"
+import { Toaster } from "@/components/ui/sonner"
 
 const geist = Geist({ subsets: ["latin"] })
 const geistMono = Geist_Mono({ subsets: ["latin"] })
@@ -33,6 +34,7 @@ export default function RootLayout({
           <Header />
           {children}
           <MobileNav />
+          <Toaster position="top-center" richColors />
         </ThemeProvider>
       </body>
     </html>
