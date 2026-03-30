@@ -1,0 +1,109 @@
+Name: Shubha Singh
+Role: Frontend Developer
+Module: Interactive Learning Platform (Frontend)
+
+Work Assigned -
+I was responsible for building the frontend interface of the interactive learning platform, mainly focusing on:
+
+Dashboard
+Login/Register entry
+Stress management section
+Relaxation activities
+Basic settings page
+
+Technologies Used-
+Next.js
+React
+Tailwind CSS
+JavaScript/TypeScript
+GitHub
+Vercel (for deployment)
+
+Work Completed-
+
+1. Dashboard
+Created the main dashboard UI.
+Added logic to show:
+Login/Register screen if user is not logged in.
+Dashboard if the user is logged in.
+
+2. Login and Register Entry
+Added both Login and Register options on the dashboard.
+Connected with user storage logic.
+
+3. Stress Management Section
+Created a separate stress management page.
+Added relaxation activities for users.
+
+4. Relaxation Activities
+Implemented five activities:
+1. Deep Breathing
+2. Guided Meditation
+3. Muscle Relaxation
+4. Calm Focus
+5. Mindful Listening
+Each activity:
+Starts a session
+Plays a relaxing background video
+Uses a timer
+
+5. Background Video System
+Added support for 10 relaxation videos.
+Each session randomly selects one video.
+
+6. Breathing Animation
+Added a simple breathing animation for guided breathing exercises.
+
+7. Mini Relaxation Game
+Implemented a small interactive game (tap the moving dot) for stress relief.
+
+8. Settings Page
+Added theme selection (light/dark).
+Added language selection.
+
+Project Links -
+GitHub:
+https://github.com/shubha0503/Edtech_platform
+Deployed Frontend
+https://edtech-platform-wheat.vercel.app/
+Gamifier Prototype (not deployed due to AI key protection)
+https://github.com/Random-Avgeek/genesis_engine
+
+Interactive Learning Platform 
+
+The Interactive Learning Platform is the main module of the project. It is designed to provide a personalized and stress-aware learning experience. Instead of using a one-size-fits-all approach, the system interacts with the user, understands their inputs, and suggests suitable learning paths, activities, or strategies.
+
+The platform begins with user authentication. After login or registration, the user is taken to the dashboard, which serves as the central hub of the system. From the dashboard, the user can access learning recommendations, mental wellness activities, and other interactive features.
+
+The system observes the user’s behavior, responses, and activity patterns. Based on this information, it suggests different learning paths or stress-relief activities. For example, if the user shows signs of stress or low engagement, the platform may recommend a short breathing exercise or a relaxation activity before continuing with learning tasks.
+
+This creates a balanced environment where the system supports both academic progress and mental well-being.
+
+Key Functional Points
+
+1. User Authentication
+Login and registration system
+Stores user data locally for personalization
+
+2. Dashboard Interface
+Central hub for all features
+Shows learning suggestions and wellness options
+
+3. Interactive Learning Guidance
+Takes user inputs and preferences
+Suggests learning paths or strategies
+
+4. Stress-Aware System
+Monitors user activity and responses
+Detects signs of stress or fatigue
+
+5. Wellness Integration
+Suggests relaxation activities
+Includes breathing exercises, meditation, and mini-games
+
+6. User Settings
+Theme selection (light/dark mode)
+Language preferences
+
+--------------------------------------------------------------------------------------
+

@@ -1,0 +1,49 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id        String   @id @default(cuid())
+  name      String?
+  email     String   @unique
+  password  String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  assessments AssessmentResult[]
+  wellness    WellnessSession[]
+}
+
+model AssessmentResult {
+  id     String @id @default(cuid())
+  userId String
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  totalQuestions    Int
+  answeredQuestions Int
+  correctAnswers    Int
+  score             Float
+  accuracy          Float
+  timeTaken         Int // in seconds
+  difficulty        String
+  stressLevel       String // e.g., 'low', 'moderate', 'high'
+  answers           String // Stored as JSON string to keep simple in SQLite
+
+  createdAt DateTime @default(now())
+}
+
+model WellnessSession {
+  id     String @id @default(cuid())
+  userId String
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  activityName    String
+  durationSeconds Int
+
+  createdAt DateTime @default(now())
+}

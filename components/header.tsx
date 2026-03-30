@@ -1,25 +1,20 @@
 'use client'
 
 import { Bell, Settings, User, LogOut } from 'lucide-react'
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 import { useRouter } from 'next/navigation'
 import { Button } from '@/components/ui/button'
-import { getUser, logoutUser } from '@/lib/user-storage'
+import { useSession, signOut } from 'next-auth/react'
 
 export function Header() {
   const router = useRouter()
-  const [user, setUser] = useState<any>(null)
+  const { data: session } = useSession()
   const [showNotifications, setShowNotifications] = useState(false)
 
-  useEffect(() => {
-    const storedUser = getUser()
-    setUser(storedUser)
-  }, [])
+  const notifications: string[] = [] // Or fetch from backend if integrated
 
-  const notifications = user?.notifications || []
-
-  const handleLogout = () => {
-    logoutUser()
+  const handleLogout = async () => {
+    await signOut({ redirect: false })
     router.push('/login')
   }
 
@@ -97,7 +92,7 @@ export function Header() {
             onClick={() => router.push('/settings')}
           >
             <User className="h-4 w-4" />
-            <span>{user?.name || 'Profile'}</span>
+            <span>{session?.user?.name || 'Profile'}</span>
           </Button>
 
           <Button

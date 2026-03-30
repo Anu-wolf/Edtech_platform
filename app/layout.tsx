@@ -7,6 +7,7 @@ import "./globals.css"
 import { Header } from "@/components/header"
 import { MobileNav } from "@/components/mobile-nav"
 import { Toaster } from "@/components/ui/sonner"
+import { Providers } from "@/components/providers"
 
 const geist = Geist({ subsets: ["latin"] })
 const geistMono = Geist_Mono({ subsets: ["latin"] })
@@ -30,12 +31,14 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <body className={`${geist.className} antialiased pb-20 md:pb-0`}>
-        <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
-          <Header />
-          {children}
-          <MobileNav />
-          <Toaster position="top-center" richColors />
-        </ThemeProvider>
+        <Providers>
+          <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
+            <Header />
+            {children}
+            <MobileNav />
+            <Toaster position="top-center" richColors />
+          </ThemeProvider>
+        </Providers>
       </body>
     </html>
   )

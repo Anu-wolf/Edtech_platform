@@ -12,3 +12,5 @@ node_modules/
 .DS_Store
 .vercel
 public/video9.mp4
+
+/lib/generated/prisma
