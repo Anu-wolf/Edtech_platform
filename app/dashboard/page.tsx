@@ -1,21 +1,19 @@
 "use client"
 
-import { useEffect, useState } from "react"
+import { useSession } from "next-auth/react"
 import Link from "next/link"
-import { getUser } from "@/lib/user-storage"
 import { Dashboard } from "@/components/dashboard"
 import { Button } from "@/components/ui/button"
 
 export default function DashboardPage() {
-  const [user, setUser] = useState<any>(null)
+  const { data: session, status } = useSession()
 
-  useEffect(() => {
-    const storedUser = getUser()
-    setUser(storedUser)
-  }, [])
+  if (status === "loading") {
+    return <div className="flex min-h-screen items-center justify-center">Loading...</div>
+  }
 
   // If not logged in → show entry screen
-  if (!user) {
+  if (!session) {
     return (
       <div className="flex min-h-screen items-center justify-center bg-background px-4">
         <div className="w-full max-w-md space-y-6 text-center">

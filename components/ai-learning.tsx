@@ -4,35 +4,50 @@ import { useState } from "react"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { Slider } from "@/components/ui/slider"
+import ReactMarkdown from "react-markdown"
 
 export function AILearning() {
     const [stress, setStress] = useState(40)
     const [hours, setHours] = useState(4)
     const [confidence, setConfidence] = useState(50)
     const [result, setResult] = useState<string | null>(null)
+    const [isLoading, setIsLoading] = useState(false)
 
-    const generatePlan = () => {
-        if (stress > 70) {
-            setResult("Light Study Mode: Short sessions + daily relaxation exercises.")
-        } else if (confidence < 40) {
-            setResult("Concept Builder Mode: Focus on basics with guided lessons.")
-        } else if (hours < 3) {
-            setResult("Micro-Learning Mode: 20-minute focused sessions.")
-        } else {
-            setResult("Deep Work Mode: 90-minute distraction-free study blocks.")
+    const generatePlan = async () => {
+        setIsLoading(true)
+        setResult(null)
+        try {
+            const res = await fetch("/api/generate-plan", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ stress, hours, confidence }),
+            });
+
+            if (res.ok) {
+                const data = await res.json();
+                setResult(data.plan);
+            } else {
+                setResult("Error generating plan. Make sure you are logged in.");
+            }
+        } catch (error) {
+            setResult("Failed to connect to AI server.");
+        } finally {
+            setIsLoading(false);
         }
     }
 
     return (
-        <Card className="max-w-xl mx-auto">
+        <Card className="max-w-xl mx-auto border-border">
             <CardHeader>
                 <CardTitle>AI Learning Path Generator</CardTitle>
             </CardHeader>
 
             <CardContent className="space-y-6">
-                {/* Stress */}
                 <div>
-                    <p className="text-sm mb-2">Stress Level: {stress}%</p>
+                    <p className="text-sm font-medium mb-2 flex justify-between">
+                        <span>Stress Level</span>
+                        <span className={stress > 70 ? "text-destructive" : ""}>{stress}%</span>
+                    </p>
                     <Slider
                         defaultValue={[stress]}
                         max={100}
@@ -41,9 +56,11 @@ export function AILearning() {
                     />
                 </div>
 
-                {/* Study hours */}
                 <div>
-                    <p className="text-sm mb-2">Study Hours per Day: {hours}</p>
+                    <p className="text-sm font-medium mb-2 flex justify-between">
+                        <span>Study Time</span>
+                        <span>{hours} Hours</span>
+                    </p>
                     <Slider
                         defaultValue={[hours]}
                         max={10}
@@ -52,9 +69,11 @@ export function AILearning() {
                     />
                 </div>
 
-                {/* Confidence */}
                 <div>
-                    <p className="text-sm mb-2">Confidence: {confidence}%</p>
+                    <p className="text-sm font-medium mb-2 flex justify-between">
+                        <span>Confidence in Topic</span>
+                        <span>{confidence}%</span>
+                    </p>
                     <Slider
                         defaultValue={[confidence]}
                         max={100}
@@ -63,13 +82,17 @@ export function AILearning() {
                     />
                 </div>
 
-                <Button className="w-full" onClick={generatePlan}>
-                    Generate Learning Plan
+                <Button 
+                    className="w-full bg-secondary hover:bg-secondary/90 text-primary-foreground" 
+                    onClick={generatePlan} 
+                    disabled={isLoading}
+                >
+                    {isLoading ? "Generating your perfect plan..." : "Generate AI Learning Plan"}
                 </Button>
 
                 {result && (
-                    <div className="p-4 rounded-lg bg-secondary/10 text-sm">
-                        {result}
+                    <div className="p-5 rounded-lg bg-card border text-sm prose prose-sm max-w-none text-foreground prose-headings:text-foreground prose-strong:text-secondary">
+                        <ReactMarkdown>{result}</ReactMarkdown>
                     </div>
                 )}
             </CardContent>
